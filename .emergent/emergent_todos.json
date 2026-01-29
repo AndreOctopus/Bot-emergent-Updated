@@ -1,0 +1,34 @@
+[
+  {
+    "content": "Phase 1: Install Node.js 22+ and verify installation",
+    "status": "in_progress"
+  },
+  {
+    "content": "Phase 1: Install Moltbot globally via npm",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 1: Create POC test script to verify Moltbot can start and serve UI",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 1: Implement reverse proxy (HTTP + WebSocket) in backend",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 1: Verify POC - Moltbot UI loads through proxy",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: Build backend endpoints (start/status/stop)",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: Build React setup page with provider selection",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: End-to-end testing with Testing Agent",
+    "status": "pending"
+  }
+]
