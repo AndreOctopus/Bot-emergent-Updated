@@ -342,40 +342,54 @@ async def proxy_moltbot_ui(request: Request, path: str = ""):
             content = response.content
             content_type = response.headers.get("content-type", "")
             
+            # Get the current gateway token
+            current_token = gateway_state.get("token", "")
+            
             # If it's HTML, rewrite any WebSocket URLs to use our proxy
             if "text/html" in content_type:
                 content_str = content.decode('utf-8', errors='ignore')
-                # Inject WebSocket URL override script
-                ws_override = '''
+                # Inject WebSocket URL override script with token
+                ws_override = f'''
 <script>
+// Moltbot Proxy Configuration
+window.__MOLTBOT_PROXY_TOKEN__ = "{current_token}";
+window.__MOLTBOT_PROXY_WS_URL__ = (window.location.protocol === 'https:' ? 'wss:' : 'ws:') + '//' + window.location.host + '/api/moltbot/ws';
+
 // Override WebSocket to use proxy path
-(function() {
+(function() {{
     const originalWS = window.WebSocket;
-    window.WebSocket = function(url, protocols) {
-        // Rewrite ws://localhost:18789 or similar to our proxy
-        if (url.includes('127.0.0.1:18789') || url.includes('localhost:18789')) {
-            const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-            url = wsProtocol + '//' + window.location.host + '/api/moltbot/ws';
-        }
-        // If relative WebSocket URL, make it absolute to our proxy
-        if (url.startsWith('/') && !url.startsWith('/api/moltbot/ws')) {
-            const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-            url = wsProtocol + '//' + window.location.host + '/api/moltbot/ws';
-        }
-        // Handle case where Control UI uses same-origin WebSocket
-        if (url === window.location.origin || url === window.location.origin + '/') {
-            const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-            url = wsProtocol + '//' + window.location.host + '/api/moltbot/ws';
-        }
-        console.log('[Moltbot Proxy] WebSocket connecting to:', url);
-        return new originalWS(url, protocols);
-    };
+    const proxyWsUrl = window.__MOLTBOT_PROXY_WS_URL__;
+    
+    window.WebSocket = function(url, protocols) {{
+        let finalUrl = url;
+        
+        // Rewrite any Moltbot gateway URLs to use our proxy
+        if (url.includes('127.0.0.1:18789') || 
+            url.includes('localhost:18789') ||
+            url.includes('0.0.0.0:18789') ||
+            (url.includes(':18789') && !url.includes('/api/moltbot/'))) {{
+            finalUrl = proxyWsUrl;
+        }}
+        
+        // If it's a relative URL or same-origin, redirect to proxy
+        try {{
+            const urlObj = new URL(url, window.location.origin);
+            if (urlObj.port === '18789' || urlObj.pathname === '/' && !url.startsWith(proxyWsUrl)) {{
+                finalUrl = proxyWsUrl;
+            }}
+        }} catch (e) {{}}
+        
+        console.log('[Moltbot Proxy] WebSocket:', url, '->', finalUrl);
+        return new originalWS(finalUrl, protocols);
+    }};
+    
+    // Copy static properties
     window.WebSocket.prototype = originalWS.prototype;
     window.WebSocket.CONNECTING = originalWS.CONNECTING;
     window.WebSocket.OPEN = originalWS.OPEN;
     window.WebSocket.CLOSING = originalWS.CLOSING;
     window.WebSocket.CLOSED = originalWS.CLOSED;
-})();
+}})();
 </script>
 '''
                 # Insert before </head> or at start of <body>
