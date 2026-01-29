@@ -141,10 +141,14 @@ Exit Criteria (Phase 2):
 - ✅ Moltbot ownership - only the user who started can access/stop
 - ✅ Shows "in use" message to other users when someone else owns the instance
 
-### Testing: PASSED 100%
-- Backend: All auth and Moltbot endpoints working correctly
-- Frontend: Login flow, protected routes, ownership display working
-- Integration: Cookie auth, Bearer token fallback, ownership tracking working
+### Phase 4: Persistence Fix - COMPLETED
+- ✅ Created installation script that installs Node.js and clawdbot to /root (persisted path)
+- ✅ Node.js installed to /root/nodejs
+- ✅ Clawdbot installed to /root/.clawdbot-bin with symlink
+- ✅ Created wrapper script /root/run_clawdbot.sh for reliable execution
+- ✅ Added paths to /root/.bashrc for shell access
+- ✅ Updated backend to use persistent paths and auto-install on first use
+- ✅ Added startup event to check dependencies when server starts
 
 ## Success Criteria
 - From the preview URL, a user can:
