@@ -295,24 +295,42 @@ class MoltbotAPITester:
 
 def main():
     print("="*60)
-    print("🦞 MOLTBOT API TESTING")
+    print("🦞 MOLTBOT API TESTING WITH AUTHENTICATION")
     print("="*60)
     print(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
     tester = MoltbotAPITester()
     
+    # Get test tokens from environment or use hardcoded test tokens
+    import os
+    owner_token = os.environ.get('TEST_OWNER_TOKEN', 'test_session_owner_1769688022588')
+    other_token = os.environ.get('TEST_OTHER_TOKEN', 'test_session_other_1769688022588')
+    
+    print(f"\nUsing owner token: {owner_token[:20]}...")
+    print(f"Using other token: {other_token[:20]}...")
+    
     # Run tests
     print("\n--- Basic API Tests ---")
     tester.test_root_endpoint()
     
+    print("\n--- Authentication Tests (Unauthenticated) ---")
+    tester.test_auth_unauthenticated()
+    
+    print("\n--- Authentication Tests (With Token) ---")
+    tester.test_auth_with_token(owner_token)
+    
     print("\n--- Moltbot Status Tests ---")
     tester.test_moltbot_status_initial()
+    tester.test_moltbot_status_with_auth(owner_token)
     
     print("\n--- Moltbot Start Validation Tests ---")
     tester.test_moltbot_start_validation()
     
     print("\n--- Legacy Endpoints Tests ---")
     tester.test_legacy_status_endpoints()
+    
+    print("\n--- Logout Test ---")
+    tester.test_logout(owner_token)
     
     # Print summary
     tester.print_summary()
