@@ -157,7 +157,7 @@ const TradingDashboard = () => {
               <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
                 AI Crypto Scalper
               </h1>
-              <p className="text-slate-400">Autonomous Binance Futures Trading</p>
+              <p className="text-slate-400">Conservative Mode • +2.5% Daily Target</p>
             </div>
           </div>
           
