@@ -490,14 +490,19 @@ Respond in JSON format ONLY:
 # ============== Main Trading Bot ==============
 
 class CryptoTradingBot:
-    """Main trading bot with AI decision making"""
+    """Main trading bot with AI decision making - CONSERVATIVE MODE"""
     
-    # Top liquid Binance Futures pairs
+    # Top liquid Binance Futures pairs (reduced for quality)
     TRADING_PAIRS = [
-        "BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT", "XRPUSDT",
-        "DOGEUSDT", "ADAUSDT", "AVAXUSDT", "LINKUSDT", "DOTUSDT",
-        "MATICUSDT", "LTCUSDT", "ATOMUSDT", "UNIUSDT", "NEARUSDT"
+        "BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT", "XRPUSDT"
     ]
+    
+    # Conservative strategy parameters
+    DEFAULT_LEVERAGE = 3
+    DEFAULT_STOP_LOSS_PERCENT = 1.0
+    DEFAULT_TAKE_PROFIT_PERCENT = 1.5
+    DEFAULT_RISK_PER_TRADE = 3.0  # % of balance per trade
+    MIN_SIGNAL_CONFIDENCE = 80  # Only high-quality signals
     
     def __init__(
         self,
@@ -507,8 +512,8 @@ class CryptoTradingBot:
         telegram_chat_id: str,
         llm_key: str,
         db: AsyncIOMotorClient,
-        daily_target_percent: float = 10.0,
-        max_positions: int = 5,
+        daily_target_percent: float = 2.5,  # Conservative target
+        max_positions: int = 2,  # Fewer positions
         testnet: bool = False
     ):
         self.binance = BinanceFuturesClient(binance_key, binance_secret, testnet)
