@@ -546,10 +546,13 @@ class CryptoTradingBot:
         self.last_report_date = datetime.now(timezone.utc).date()
         
         await self.telegram.send_bot_status(
-            "STARTED 🚀",
+            "STARTED 🚀 (CONSERVATIVE MODE)",
             f"💰 Balance: ${self.daily_start_balance:,.2f}\n"
             f"🎯 Daily Target: +{self.daily_target_percent}%\n"
-            f"📊 Trading {len(self.TRADING_PAIRS)} pairs"
+            f"⚡ Leverage: {self.leverage}x\n"
+            f"🛡️ SL: {self.stop_loss_percent}% | TP: {self.take_profit_percent}%\n"
+            f"📊 Max Positions: {self.max_positions}\n"
+            f"💎 Risk per trade: {self.risk_per_trade}%"
         )
         
         logger.info(f"Bot started with balance: ${self.daily_start_balance:.2f}")
