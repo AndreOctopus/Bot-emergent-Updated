@@ -427,11 +427,13 @@ Respond in JSON format ONLY:
 }}"""
 
         try:
-            self.chat.messages = [Message(role="user", text=prompt)]
-            response = await asyncio.to_thread(self.chat.send_message, "Analyze and provide JSON decision")
+            response = await asyncio.to_thread(
+                self.chat.send_message,
+                UserMessage(text=prompt)
+            )
             
             # Parse JSON from response
-            response_text = response.text if hasattr(response, 'text') else str(response)
+            response_text = response.response if hasattr(response, 'response') else str(response)
             
             # Extract JSON from response
             import re
