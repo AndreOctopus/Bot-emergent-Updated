@@ -24,7 +24,7 @@ from telegram import Bot
 from telegram.constants import ParseMode
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field
-from emergentintegrations.llm.chat import Chat, Message
+from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 logger = logging.getLogger(__name__)
 
