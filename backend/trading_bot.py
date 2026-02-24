@@ -523,6 +523,10 @@ class CryptoTradingBot:
         
         self.daily_target_percent = daily_target_percent
         self.max_positions = max_positions
+        self.leverage = self.DEFAULT_LEVERAGE
+        self.stop_loss_percent = self.DEFAULT_STOP_LOSS_PERCENT
+        self.take_profit_percent = self.DEFAULT_TAKE_PROFIT_PERCENT
+        self.risk_per_trade = self.DEFAULT_RISK_PER_TRADE
         self.running = False
         
         # Daily tracking
