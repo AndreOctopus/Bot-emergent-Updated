@@ -403,26 +403,34 @@ MARKET CONTEXT:
 - Volume: {'HIGH' if volume_ratio > 1.5 else 'LOW' if volume_ratio < 0.5 else 'NORMAL'}
 """
         
-        prompt = f"""You are an expert cryptocurrency scalping trader. Analyze this market data and decide whether to open a LONG or SHORT position.
+        prompt = f"""You are an expert cryptocurrency scalping trader using a CONSERVATIVE strategy.
+Analyze this market data and decide whether to open a LONG or SHORT position.
 
 {market_data}
 
-TRADING RULES:
-1. Target 0.5-2% profit per trade (scalping)
-2. Maximum leverage: 20x (recommend 5-15x based on volatility)
-3. Stop loss: Always set 1-3% from entry
-4. Risk per trade: 2-10% of balance
-5. Don't trade if no clear signal
-6. Consider existing positions
+CONSERVATIVE TRADING RULES (MUST FOLLOW):
+1. Target 1-2% profit per trade (scalping)
+2. Maximum leverage: 3x (conservative)
+3. Stop loss: Always set 1% from entry
+4. Take profit: Set 1.5% from entry (1.5:1 reward-to-risk)
+5. ONLY trade with the trend - NEVER counter-trend
+6. Minimum confidence: 80% required to trade
+7. If no clear signal, WAIT - quality over quantity
+8. Consider existing positions - avoid overexposure
+
+TREND FOLLOWING SIGNALS:
+- LONG only in BULLISH trend (SMA10 > SMA20) with RSI < 45 (pullback)
+- SHORT only in BEARISH trend (SMA10 < SMA20) with RSI > 55 (pullback)
+- High volume (>1.2x average) confirms the signal
 
 Respond in JSON format ONLY:
 {{
     "action": "LONG" | "SHORT" | "WAIT",
     "confidence": 0-100,
-    "leverage": 5-20,
-    "position_size_percent": 2-10,
-    "stop_loss_percent": 1-3,
-    "take_profit_percent": 0.5-2,
+    "leverage": 3,
+    "position_size_percent": 3,
+    "stop_loss_percent": 1,
+    "take_profit_percent": 1.5,
     "reason": "brief explanation"
 }}"""
 
