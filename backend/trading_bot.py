@@ -644,11 +644,11 @@ class CryptoTradingBot:
     async def _execute_trade(self, signal: TradeSignal, balance: float):
         """Execute a trade based on AI signal"""
         try:
-            # Set leverage
-            await self.binance.set_leverage(signal.symbol, signal.leverage)
+            # Set conservative leverage
+            await self.binance.set_leverage(signal.symbol, self.leverage)
             
-            # Calculate position size
-            position_value = balance * (signal.position_size_percent / 100) * signal.leverage
+            # Calculate position size based on risk management
+            position_value = balance * (self.risk_per_trade / 100) * self.leverage
             quantity = position_value / signal.entry_price
             
             # Get precision
