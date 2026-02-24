@@ -631,7 +631,7 @@ class CryptoTradingBot:
                     positions=current_positions
                 )
                 
-                if signal and signal.confidence >= 70:
+                if signal and signal.confidence >= self.MIN_SIGNAL_CONFIDENCE:
                     await self._execute_trade(signal, balance)
                     return  # One trade at a time
                 
