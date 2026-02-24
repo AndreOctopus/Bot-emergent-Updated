@@ -1137,6 +1137,85 @@ async def get_status_checks():
     return status_checks
 
 
+# ============== Trading Bot Endpoints ==============
+
+class TradingBotStartRequest(BaseModel):
+    binance_api_key: str
+    binance_secret_key: str
+    telegram_token: str
+    telegram_chat_id: str
+
+
+@api_router.post("/trading/start")
+async def start_trading_bot(request: TradingBotStartRequest, req: Request):
+    """Start the AI trading bot"""
+    user = await require_auth(req)
+    
+    # Get Emergent LLM key from environment
+    llm_key = os.environ.get('EMERGENT_API_KEY')
+    if not llm_key:
+        raise HTTPException(status_code=500, detail="LLM key not configured")
+    
+    try:
+        success = await TradingBotManager.start_bot(
+            binance_key=request.binance_api_key,
+            binance_secret=request.binance_secret_key,
+            telegram_token=request.telegram_token,
+            telegram_chat_id=request.telegram_chat_id,
+            llm_key=llm_key,
+            db=db
+        )
+        
+        if success:
+            return {"ok": True, "message": "Trading bot started successfully"}
+        else:
+            return {"ok": False, "message": "Bot is already running"}
+    except Exception as e:
+        logger.error(f"Failed to start trading bot: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.post("/trading/stop")
+async def stop_trading_bot(req: Request):
+    """Stop the AI trading bot"""
+    user = await require_auth(req)
+    
+    try:
+        success = await TradingBotManager.stop_bot()
+        if success:
+            return {"ok": True, "message": "Trading bot stopped"}
+        else:
+            return {"ok": False, "message": "Bot is not running"}
+    except Exception as e:
+        logger.error(f"Failed to stop trading bot: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/trading/status")
+async def get_trading_bot_status(req: Request):
+    """Get trading bot status"""
+    user = await require_auth(req)
+    return TradingBotManager.get_status()
+
+
+@api_router.get("/trading/trades")
+async def get_recent_trades(req: Request, limit: int = 50):
+    """Get recent trades"""
+    user = await require_auth(req)
+    
+    trades = await db.trades.find({}, {"_id": 0}).sort("timestamp", -1).limit(limit).to_list(limit)
+    return trades
+
+
+@api_router.get("/trading/reports")
+async def get_daily_reports(req: Request, limit: int = 30):
+    """Get daily performance reports"""
+    user = await require_auth(req)
+    
+    reports = await db.daily_reports.find({}, {"_id": 0}).sort("date", -1).limit(limit).to_list(limit)
+    return reports
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
