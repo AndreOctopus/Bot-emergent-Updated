@@ -832,8 +832,8 @@ class TradingBotManager:
             telegram_chat_id=telegram_chat_id,
             llm_key=llm_key,
             db=db,
-            daily_target_percent=10.0,
-            max_positions=5,
+            daily_target_percent=2.5,  # Conservative target
+            max_positions=2,  # Fewer positions for quality
             testnet=False
         )
         
