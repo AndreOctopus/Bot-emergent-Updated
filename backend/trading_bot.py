@@ -321,7 +321,7 @@ class AIStrategyEngine:
     
     def __init__(self, llm_key: str):
         self.llm_key = llm_key
-        self.chat = Chat(api_key=llm_key, model="gpt-5.2")
+        self.chat = LlmChat(api_key=llm_key, model="gpt-5.2")
     
     async def analyze_market(
         self,
