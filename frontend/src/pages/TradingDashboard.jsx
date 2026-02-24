@@ -359,22 +359,22 @@ const TradingDashboard = () => {
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h3 className="text-lg font-semibold">Daily Target Progress</h3>
-                <p className="text-sm text-slate-400">Target: +10% daily profit</p>
+                <p className="text-sm text-slate-400">Target: +2.5% daily profit (Conservative)</p>
               </div>
-              <Badge className={`${todayPnL >= 10 ? 'bg-emerald-500' : 'bg-amber-500/50'}`}>
-                {todayPnL >= 10 ? '🎉 TARGET REACHED!' : `${Math.min(todayPnL / 10 * 100, 100).toFixed(0)}%`}
+              <Badge className={`${todayPnL >= 2.5 ? 'bg-emerald-500' : 'bg-amber-500/50'}`}>
+                {todayPnL >= 2.5 ? '🎉 TARGET REACHED!' : `${Math.min(todayPnL / 2.5 * 100, 100).toFixed(0)}%`}
               </Badge>
             </div>
             <div className="h-4 bg-slate-800 rounded-full overflow-hidden">
               <div 
                 className="h-full bg-gradient-to-r from-amber-500 to-emerald-500 transition-all duration-500"
-                style={{ width: `${Math.min(Math.max(todayPnL / 10 * 100, 0), 100)}%` }}
+                style={{ width: `${Math.min(Math.max(todayPnL / 2.5 * 100, 0), 100)}%` }}
               />
             </div>
             <div className="flex justify-between mt-2 text-xs text-slate-500">
               <span>0%</span>
-              <span>5%</span>
-              <span>10%</span>
+              <span>1.25%</span>
+              <span>2.5%</span>
             </div>
           </CardContent>
         </Card>
