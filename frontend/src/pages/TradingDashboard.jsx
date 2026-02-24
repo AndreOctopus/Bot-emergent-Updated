@@ -525,6 +525,34 @@ const TradingDashboard = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Strategy Info */}
+        <Card className="mt-4 bg-emerald-900/20 border-emerald-500/30">
+          <CardContent className="pt-6">
+            <h3 className="font-semibold text-emerald-400 mb-3">📊 Conservative Strategy Parameters</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+              <div>
+                <p className="text-slate-500">Daily Target</p>
+                <p className="text-emerald-400 font-semibold">+2.5%</p>
+              </div>
+              <div>
+                <p className="text-slate-500">Leverage</p>
+                <p className="text-emerald-400 font-semibold">3x</p>
+              </div>
+              <div>
+                <p className="text-slate-500">Stop Loss</p>
+                <p className="text-red-400 font-semibold">1%</p>
+              </div>
+              <div>
+                <p className="text-slate-500">Take Profit</p>
+                <p className="text-emerald-400 font-semibold">1.5%</p>
+              </div>
+            </div>
+            <p className="text-xs text-slate-500 mt-3">
+              🎯 Projected monthly return: +50-75% | Trading 5 pairs: BTC, ETH, BNB, SOL, XRP
+            </p>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
