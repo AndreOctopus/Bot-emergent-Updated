@@ -24,6 +24,8 @@ from whatsapp_monitor import get_whatsapp_status, fix_registered_flag
 # Gateway management (supervisor-based)
 from gateway_config import write_gateway_env, clear_gateway_env
 from supervisor_client import SupervisorClient
+# Trading bot
+from trading_bot import TradingBotManager
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
