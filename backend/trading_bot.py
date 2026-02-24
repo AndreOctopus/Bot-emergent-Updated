@@ -686,22 +686,25 @@ class CryptoTradingBot:
             await self.telegram.send_message(f"⚠️ Trade execution failed: {str(e)[:100]}")
     
     async def _manage_positions(self, positions: List[Position]):
-        """Monitor and manage open positions"""
+        """Monitor and manage open positions with conservative exits"""
         for position in positions:
             try:
                 # Check unrealized PnL percentage
                 entry_value = position.entry_price * position.quantity
                 pnl_percent = (position.unrealized_pnl / entry_value * 100) if entry_value > 0 else 0
                 
-                # Take profit at +1.5% or stop loss at -2%
+                # Conservative exits: TP at +1.5% × leverage, SL at -1% × leverage
+                tp_threshold = self.take_profit_percent * self.leverage
+                sl_threshold = -self.stop_loss_percent * self.leverage
+                
                 should_close = False
                 close_reason = ""
                 
-                if pnl_percent >= 1.5:
+                if pnl_percent >= tp_threshold:
                     should_close = True
                     close_reason = f"Take Profit (+{pnl_percent:.2f}%)"
                     self.winning_trades += 1
-                elif pnl_percent <= -2:
+                elif pnl_percent <= sl_threshold:
                     should_close = True
                     close_reason = f"Stop Loss ({pnl_percent:.2f}%)"
                     self.losing_trades += 1
