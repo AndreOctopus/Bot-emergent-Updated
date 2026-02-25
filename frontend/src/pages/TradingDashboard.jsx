@@ -14,7 +14,8 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+// Backend URL - use environment variable or relative path for Railway
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 
 const TradingDashboard = () => {
   const [isRunning, setIsRunning] = useState(false);
@@ -23,11 +24,11 @@ const TradingDashboard = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(false);
   
-  // Bot configuration
+  // Bot configuration - hardcoded defaults (can be overridden)
   const [config, setConfig] = useState({
-    binance_api_key: '',
-    binance_secret_key: '',
-    telegram_token: '',
+    binance_api_key: 'cuCbg2Yz9Co9lBCSUFHGuGqfK44s69NQOKRsbgJD97KzUIv6KsQCC0u6t4zc1a3I',
+    binance_secret_key: 'Vz8VPUugXwaAfIFh6NmIb6OGu8cOIh1OZuoEgsebIl08UPyAn6ErUYAjfLmV01Xa',
+    telegram_token: '8144215710:AAEX_U3V2HQhJ5AhVpFJbt5CRm2dA5yDiHg',
     telegram_chat_id: ''
   });
   
