@@ -29,7 +29,7 @@ const TradingDashboard = () => {
     binance_api_key: 'cuCbg2Yz9Co9lBCSUFHGuGqfK44s69NQOKRsbgJD97KzUIv6KsQCC0u6t4zc1a3I',
     binance_secret_key: 'Vz8VPUugXwaAfIFh6NmIb6OGu8cOIh1OZuoEgsebIl08UPyAn6ErUYAjfLmV01Xa',
     telegram_token: '8144215710:AAEX_U3V2HQhJ5AhVpFJbt5CRm2dA5yDiHg',
-    telegram_chat_id: ''
+    telegram_chat_id: '-1003844330472'
   });
   
   const [showConfig, setShowConfig] = useState(true);
