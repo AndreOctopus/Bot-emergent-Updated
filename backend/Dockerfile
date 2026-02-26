@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Force rebuild - v2
+# Force rebuild - v3
 # Встановлення системних залежностей (якщо потрібно)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
@@ -16,5 +16,5 @@ COPY . .
 # Railway сам встановлює PORT, але додамо fallback
 ENV PORT=8001
 
-# Shell формат для правильної обробки змінних
-CMD ["sh", "-c", "uvicorn server:app --host 0.0.0.0 --port $PORT"]
+# Простий формат без змінних
+CMD uvicorn server:app --host 0.0.0.0 --port 8001
