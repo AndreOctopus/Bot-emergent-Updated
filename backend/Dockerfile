@@ -17,4 +17,5 @@ COPY . .
 # ENV PORT=8001
 
 # Простий формат без змінних
-CMD ["python", "start.py"]
+# At the very end of your Dockerfile
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}
