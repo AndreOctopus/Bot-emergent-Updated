@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Force rebuild - v3
+# Force rebuild - v4
 # Встановлення системних залежностей (якщо потрібно)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
