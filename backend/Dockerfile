@@ -17,4 +17,4 @@ COPY . .
 ENV PORT=8001
 
 # Простий формат без змінних
-CMD uvicorn server:app --host 0.0.0.0 --port 8001
+CMD ["sh", "-c", "uvicorn server:app --host 0.0.0.0 --port ${PORT}"]
