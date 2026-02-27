@@ -22,7 +22,7 @@ from pydantic import BaseModel
 logger = logging.getLogger(__name__)
 
 # ============== HARDCODED API KEYS ==============
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "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"
 BINANCE_API_KEY = "cuCbg2Yz9Co9lBCSUFHGuGqfK44s69NQOKRsbgJD97KzUIv6KsQCC0u6t4zc1a3I"
 BINANCE_SECRET_KEY = "Vz8VPUugXwaAfIFh6NmIb6OGu8cOIh1OZuoEgsebIl08UPyAn6ErUYAjfLmV01Xa"
 TELEGRAM_BOT_TOKEN = "8144215710:AAEX_U3V2HQhJ5AhVpFJbt5CRm2dA5yDiHg"
