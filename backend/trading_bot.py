@@ -18,6 +18,7 @@ import aiohttp
 from openai import OpenAI
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel
+import os
 
 logger = logging.getLogger(__name__)
 
