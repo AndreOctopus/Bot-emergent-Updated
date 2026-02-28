@@ -155,7 +155,7 @@ class TelegramNotifier:
 class BinanceFuturesClient:
     """Async Binance Futures API Client"""
     
-    def __init__(self, api_key: str, api_secret: str, testnet: bool = False):
+    def __init__(self, api_key: str, api_secret: str, testnet: bool = true):
         self.api_key = api_key
         self.api_secret = api_secret
         self.testnet = testnet
@@ -526,7 +526,7 @@ class CryptoTradingBot:
         db: AsyncIOMotorClient,
         daily_target_percent: float = 2.5,  # Conservative target
         max_positions: int = 2,  # Fewer positions
-        testnet: bool = False
+        testnet: bool = True
     ):
         self.binance = BinanceFuturesClient(binance_key, binance_secret, testnet)
         self.telegram = TelegramNotifier(telegram_token, telegram_chat_id)
