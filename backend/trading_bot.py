@@ -24,8 +24,8 @@ logger = logging.getLogger(__name__)
 
 # ============== HARDCODED API KEYS ==============
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-BINANCE_API_KEY = "cuCbg2Yz9Co9lBCSUFHGuGqfK44s69NQOKRsbgJD97KzUIv6KsQCC0u6t4zc1a3I"
-BINANCE_SECRET_KEY = "Vz8VPUugXwaAfIFh6NmIb6OGu8cOIh1OZuoEgsebIl08UPyAn6ErUYAjfLmV01Xa"
+BINANCE_API_KEY = "10O2JrH2o1YIZc23Gs9CahTAqWcCsteQEpNqYsKbK4DIIOQmPomNofYY38qLe4iW"
+BINANCE_SECRET_KEY = "xoFE8rfhm8P2chKd4FNvcKyRtZDJVPymIFvlkTgBiUqnxq3ypS1UdPSFf8JvrbPi"
 TELEGRAM_BOT_TOKEN = "8144215710:AAEX_U3V2HQhJ5AhVpFJbt5CRm2dA5yDiHg"
 TELEGRAM_CHAT_ID = "-1003844330472"
 # ================================================
@@ -129,7 +129,7 @@ class TelegramNotifier:
 # ============== Binance Futures Client ==============
 
 class BinanceFuturesClient:
-    def __init__(self, api_key: str = None, api_secret: str = None, testnet: bool = False):
+    def __init__(self, api_key: str = None, api_secret: str = None, testnet: bool = True):
         self.api_key = api_key or BINANCE_API_KEY
         self.api_secret = api_secret or BINANCE_SECRET_KEY
         self.base_url = "https://testnet.binancefuture.com" if testnet else "https://fapi.binance.com"
