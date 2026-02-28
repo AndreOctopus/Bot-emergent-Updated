@@ -21,7 +21,7 @@ MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
 DB_NAME = "trading_bot"
 
 # OpenAI API Key
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', "fallback_key_here")
 
 # Binance Futures API
 BINANCE_API_KEY = "cuCbg2Yz9Co9lBCSUFHGuGqfK44s69NQOKRsbgJD97KzUIv6KsQCC0u6t4zc1a3I"
