@@ -311,8 +311,8 @@ class CryptoTradingBot:
     TRADING_PAIRS = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT", "XRPUSDT"]
     
     def __init__(self, binance_key: str = None, binance_secret: str = None, telegram_token: str = None, 
-                 telegram_chat_id: str = None, openai_key: str = None, db = None):
-        self.binance = BinanceFuturesClient(binance_key, binance_secret)
+             telegram_chat_id: str = None, openai_key: str = None, db = None, testnet: bool = True):
+        self.binance = BinanceFuturesClient(binance_key, binance_secret, testnet)
         self.telegram = TelegramNotifier(telegram_token, telegram_chat_id)
         self.ai_engine = AIStrategyEngine(openai_key)
         self.db = db
