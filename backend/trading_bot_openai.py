@@ -838,7 +838,7 @@ class TradingBotManager:
             db=db,
             daily_target_percent=2.5,  # Conservative target
             max_positions=2,  # Fewer positions for quality
-            testnet=False
+            testnet=True
         )
         
         await cls._instance.start()
